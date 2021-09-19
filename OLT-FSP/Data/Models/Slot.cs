@@ -16,6 +16,10 @@
 
         public int Number { get; set; }
 
+        public int DeviceId { get; set; }
+
+        public Device Device { get; set; }
+
         public ICollection<Port> Ports { get; set; }
     }
 }

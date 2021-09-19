@@ -1,9 +1,8 @@
 ﻿namespace OLT_FSP.Data.Models
 {
-    using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
+    using System.ComponentModel.DataAnnotations;
+    using static OLT_FSP.Data.DataConstants;
 
     public class Device
     {
@@ -13,8 +12,11 @@
         }
         public int Id { get; set; }
 
+        [MaxLength(DeviceNameMaxLength)]
         public string Name { get; set; }  // OLT-1 , automathicly given
         
+        [Required]
+        [MaxLength(ManifacturerNameMaxLength)]
         public string Manifacturer { get; set; }  // ZTE , HUAWEI
 
         public int DataCenterId { get; set; }

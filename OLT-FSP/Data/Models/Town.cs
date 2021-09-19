@@ -2,8 +2,8 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
+    using System.ComponentModel.DataAnnotations;
+    using static OLT_FSP.Data.DataConstants;
 
     public class Town
     {
@@ -14,6 +14,8 @@
 
         public int Id { get; set; }
 
+        [Required]
+        [MaxLength(TownNameMaxLength)]
         public string Name { get; set; }
 
         public ICollection<DataCenter> DataCenters { get; set; }
