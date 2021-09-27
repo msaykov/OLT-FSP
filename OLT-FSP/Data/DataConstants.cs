@@ -29,6 +29,6 @@
         public const int AddressMinLength = 10;
         public const int AddressMaxLength = 30;
 
-
+        public const string NamesErrorMsg = "The {0} must be between {2} and {1} characters long.";
     }
 }

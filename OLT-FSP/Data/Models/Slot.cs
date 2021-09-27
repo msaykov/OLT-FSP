@@ -14,7 +14,9 @@
 
         public int Id { get; set; }
 
-        public int Number { get; set; }
+        public int Number { get; set; }      // automaticaly added
+
+        public int PortsCount { get; set; }  // 8 , 16
 
         public int DeviceId { get; set; }
 

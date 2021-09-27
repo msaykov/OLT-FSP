@@ -10,7 +10,7 @@ using OLT_FSP.Data;
 namespace OLT_FSP.Data.Migrations
 {
     [DbContext(typeof(OltDbContext))]
-    [Migration("20210919210443_InitialDbCreate")]
+    [Migration("20210922101431_InitialDbCreate")]
     partial class InitialDbCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -343,6 +343,9 @@ namespace OLT_FSP.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("Number")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PortsCount")
                         .HasColumnType("int");
 
                     b.HasKey("Id");

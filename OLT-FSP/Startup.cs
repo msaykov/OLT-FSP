@@ -9,6 +9,7 @@ namespace OLT_FSP
     using Microsoft.Extensions.Hosting;
     using OLT_FSP.Data;
     using OLT_FSP.Infrastructure;
+    using OLT_FSP.Services.Devices;
 
     public class Startup
     {
@@ -30,6 +31,7 @@ namespace OLT_FSP
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<OltDbContext>();
             services.AddControllersWithViews();
+            services.AddTransient<IDeviceService, DeviceService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

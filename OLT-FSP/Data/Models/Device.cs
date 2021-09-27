@@ -13,8 +13,8 @@
         public int Id { get; set; }
 
         [MaxLength(DeviceNameMaxLength)]
-        public string Name { get; set; }  // OLT-1 , automathicly given
-        
+        public string Name { get; set; }  // OLT-1 , automatically given
+
         [Required]
         [MaxLength(ManifacturerNameMaxLength)]
         public string Manifacturer { get; set; }  // ZTE , HUAWEI
