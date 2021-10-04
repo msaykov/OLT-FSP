@@ -1,0 +1,83 @@
+﻿@model DeviceSearchServiceModel
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "All Devices";
+}
+
+<div class="container">
+    <div>
+        <h1>This is the ALL Devices page.</h1>
+    </div>
+</div>
+
+<form method="GET">
+    <div class="row mb-5">
+        <div class="form-group col-md-4">
+            <label asp-for="DataCenter"></label>
+            <select asp-for="DataCenter" class="form-control">
+                <option value="">all</option>
+                @foreach (var center in Model.DataCenters)
+                {
+                    <option value="@center">@center</option>
+                }
+            </select>
+        </div>
+        <div class="form-group col-md-4">
+            <label asp-for="TownName"></label>
+            <input asp-for="TownName" class="form-control" id="validationTooltip01" placeholder="Town name...">
+            <span asp-validation-for="TownName" class="small text-danger"></span>
+        </div>
+        
+    </div>
+    <button class="btn btn-primary">Search</button>
+</form>
+
+<div class="text-center">
+    <h1 class="item-title">@ViewData["Title"]</h1>
+</div>
+@if (!Model.Devices.Any())
+{
+    <div class="alert alert-info" role="alert">
+        <div>
+            <h4 class="alert-heading">No devices found.</h4>
+        </div>
+    </div>
+}
+else
+{
+<table class="table table-hover">
+    <thead>
+        <tr class="clickable text-center">
+            <th scope="col">Town</th>
+            <th scope="col">DataCenter</th>
+            <th scope="col">Manifacturer</th>
+            <th scope="col">OltName</th>
+            <th scope="col">OltSlots</th>
+            <th scope="col">OltPorts</th>
+            <th scope="col">OltFreePorts</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var device in Model.Devices)
+        {
+        <tr class="clickable text-center">
+            <td>@device.Town</td>
+            <td>@device.DataCenter</td>
+            <td>@device.Manifacturer</td>
+            <td>@device.OltName</td>
+            <td>@device.OltSlots</td>
+            <td>@device.OltPorts</td>
+            <td>@device.OltFreePorts</td>
+            <td>
+                @*<a asp-controller="Projects" asp-action="Details" asp-route-id="@project.Id" class="btn btn-primary" role="button">Learn more</a>*@
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+}
+@*<div class="text-center">
+    <a asp-controller="Projects" asp-action="MyProjects" class="btn btn-primary">My Projects</a>
+</div>*@

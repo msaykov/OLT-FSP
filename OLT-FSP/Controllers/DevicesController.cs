@@ -3,6 +3,7 @@
     using Microsoft.AspNetCore.Mvc;
     using OLT_FSP.Models.Devices;
     using OLT_FSP.Services.Devices;
+    using System.Collections.Generic;
 
     public class DevicesController : Controller
     {
@@ -25,7 +26,20 @@
 
             this.device.Create(model.Town, model.DataCenter, model.Manifacturer);
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("All", "Devices");
+        }
+
+        public IActionResult All(string townName, string dataCenter)
+        {
+            var deviceQuery = device.All(townName,dataCenter);
+            var dataCenterList = device.GetDataCenters();
+            return View(new DeviceSearchServiceModel 
+            {
+                TownName = townName,
+                DataCenter = dataCenter,
+                Devices = deviceQuery,
+                DataCenters = dataCenterList,
+            });
         }
     }
 }
