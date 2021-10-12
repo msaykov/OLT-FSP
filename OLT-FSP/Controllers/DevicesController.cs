@@ -19,6 +19,8 @@
         [HttpPost]
         public IActionResult Add(AddDeviceFormModel model)
         {
+            
+            
             if (!ModelState.IsValid)
             {
                 return View(model);

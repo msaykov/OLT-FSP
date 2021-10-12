@@ -7,6 +7,7 @@
 
     public class DeviceServiceModel
     {
+        public int Id { get; set; }
         public string Town { get; set; }
         public string DataCenter { get; set; }
         public string Manifacturer { get; set; }

@@ -7,7 +7,7 @@
 
     public interface IDeviceService
     {
-        void Create(string town, string dataCenter, string manifacturer);
+        int Create(string town, string dataCenter, string manifacturer);
 
         ICollection<DeviceServiceModel> All(string town, string dataCenter);
 

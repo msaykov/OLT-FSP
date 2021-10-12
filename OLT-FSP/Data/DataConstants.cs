@@ -29,6 +29,12 @@
         public const int AddressMinLength = 10;
         public const int AddressMaxLength = 30;
 
+        public const int ServiceSlotPortsCount = 0;
+        public const int EmptyOltSlots = 0;
+        public const int HalfSlotsMounted = 9;
+        public const int AllSlotsMounted = 19;
+        public const int FullOlt = 21;
+
         public const string NamesErrorMsg = "The {0} must be between {2} and {1} characters long.";
     }
 }

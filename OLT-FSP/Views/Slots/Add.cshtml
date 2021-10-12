@@ -1,0 +1,19 @@
+﻿@model AddSlotFormModel
+@{
+    ViewData["Title"] = "Add Slot";
+}
+
+<div class="container">
+    <div class="text-center">
+        <h1 class="display-4">@ViewData["Title"]</h1>
+    </div>
+
+    <form method="post">
+        <div class="form-group">
+            <label asp-for="PortsCount"></label>
+            <input asp-for="PortsCount" class="form-control" id="validationTooltip01" placeholder="Sofia ...">
+            <span asp-validation-for="PortsCount" class="small text-danger"></span>
+        </div>
+        <input class="btn btn-primary" type="submit" value="Add" />
+    </form>
+</div>

@@ -13,7 +13,7 @@
         public DeviceService(OltDbContext data)
         => this.data = data;
 
-        public void Create(string town, string dataCenter, string manifacturer)
+        public int Create(string town, string dataCenter, string manifacturer)
         {
             var currentTown = this.GetTownByName(town);
             var TownEntity = currentTown == null ? new Town { Name = town } : currentTown;
@@ -21,7 +21,6 @@
             var currentdataCenter = this.GetDataCenterByName(dataCenter);
             var DataCenterEntity = currentdataCenter == null ? new DataCenter { Name = dataCenter, Town = TownEntity } : currentdataCenter;
 
-            //TownEntity.DataCenters.Add(DataCenterEntity);
             var devicesCount = GetDataCenterDevicesCount(dataCenter);
             var deviceEntity = new Device
             {
@@ -30,10 +29,10 @@
                 DataCenter = DataCenterEntity,
             };
 
-            //DataCenterEntity.Devices.Add(deviceEntity);
             this.data.Devices.Add(deviceEntity);
             this.data.SaveChanges();
 
+            return deviceEntity.Id;
         }
 
         public ICollection<DeviceServiceModel> All(string townName, string dataCenter)
@@ -56,6 +55,7 @@
                 .OrderBy(d => d.DataCenter.Name)
                 .Select(d => new DeviceServiceModel
                 {
+                    Id = d.Id,
                     Town = d.DataCenter.Town.Name,
                     DataCenter = d.DataCenter.Name,
                     Manifacturer = d.Manifacturer,

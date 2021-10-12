@@ -10,6 +10,7 @@ namespace OLT_FSP
     using OLT_FSP.Data;
     using OLT_FSP.Infrastructure;
     using OLT_FSP.Services.Devices;
+    using OLT_FSP.Services.Slots;
 
     public class Startup
     {
@@ -32,6 +33,7 @@ namespace OLT_FSP
                 .AddEntityFrameworkStores<OltDbContext>();
             services.AddControllersWithViews();
             services.AddTransient<IDeviceService, DeviceService>();
+            services.AddTransient<ISlotService, SlotService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -60,9 +62,10 @@ namespace OLT_FSP
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                //endpoints.MapControllerRoute(
+                //    name: "default",
+                //    pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapDefaultControllerRoute();
                 endpoints.MapRazorPages();
             });
         }
