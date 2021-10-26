@@ -5,10 +5,9 @@
     using System.Linq;
     using System.Threading.Tasks;
 
-    public interface ISlotService
+    public class AllSlotsServiceModel
     {
-        void Add(int ports, int deviceId);
-
-        ICollection<SlotServiceModel> All(int deviceId);
+        public int Id { get; set; }
+        public ICollection<SlotServiceModel> Slots{ get; set; }
     }
 }

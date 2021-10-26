@@ -2,6 +2,7 @@
 {
     using OLT_FSP.Data;
     using OLT_FSP.Data.Models;
+    using System.Collections.Generic;
     using System.Linq;
     using static Data.DataConstants;
 
@@ -35,7 +36,7 @@
                 Device = currentDevice,
                 Number = GetSlotsCount(deviceId),
                 PortsCount = ports,
-
+                IsServiceSlot = false,
             };
             currentDevice.Slots.Add(slotEntity);
             this.data.SaveChanges();
@@ -47,6 +48,29 @@
             }
         }
 
+        public ICollection<SlotServiceModel> All(int deviceId)
+        {
+            var slotsQuery = GetAllSlots(deviceId);
+            var deviceEntity = GetDeviceById(deviceId);
+            return slotsQuery
+                .Select(s => new SlotServiceModel
+                {
+                    Id = s.Id,
+                    DeviceName = deviceEntity.Name,
+                    SlotNumber = s.Number,
+                    PortsCount = s.PortsCount,
+                    UsedPorts = s.Ports.Count(),                    
+                })
+                .ToList();
+        }
+
+        private ICollection<Slot> GetAllSlots(int deviceId)
+            => this.data
+            .Slots
+            .Where(s => s.DeviceId == deviceId && s.IsServiceSlot == false)
+            .OrderBy(s => s.Number)
+            .ToList();
+
         private void AddServiceSlot(int deviceId, int slotsCount)
         {
             var currentDevice = this.GetDeviceById(deviceId);
@@ -55,7 +79,7 @@
                 Device = currentDevice,
                 Number = GetSlotsCount(deviceId),
                 PortsCount = ServiceSlotPortsCount,
-
+                IsServiceSlot = true,
             };
             currentDevice.Slots.Add(slotEntity);
             this.data.SaveChanges();
@@ -71,5 +95,6 @@
             => this.data
                 .Devices
                 .FirstOrDefault(d => d.Id == deviceId);
+
     }
 }

@@ -57,18 +57,21 @@
             <tbody>
                 @foreach (var device in Model.Devices)
                 {
-                    <tr class="clickable text-center">
-                        <td>@device.Town</td>
-                        <td>@device.DataCenter</td>
-                        <td>@device.Manifacturer</td>
-                        <td>@device.OltName</td>
-                        <td>@device.OltSlots</td>
-                        <td>@device.OltPorts</td>
-                        <td>@device.OltFreePorts</td>
-                        <td>
-                            <a asp-controller="Slots" asp-action="Add" asp-route-id="@device.Id" class="btn btn-primary" role="button">Add Slot</a>
-                        </td>
-                    </tr>
+                <tr class="clickable text-center">
+                    <td>@device.Town</td>
+                    <td>@device.DataCenter</td>
+                    <td>@device.Manifacturer</td>
+                    <td>@device.OltName</td>
+                    <td>@device.OltSlots</td>
+                    <td>@device.OltPorts</td>
+                    <td>@device.OltFreePorts</td>
+                    <td>
+                        <a asp-controller="Slots" asp-action="Add" asp-route-id="@device.Id" class="btn btn-primary" role="button">Add Slot</a>
+                    </td>
+                    <td>
+                        <a asp-controller="Slots" asp-action="All" asp-route-id="@device.Id" class="btn btn-primary" role="button">All Slots</a>
+                    </td>
+                </tr>
                 }
             </tbody>
         </table>

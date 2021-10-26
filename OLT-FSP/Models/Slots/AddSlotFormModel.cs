@@ -1,7 +1,5 @@
 ﻿namespace OLT_FSP.Models.Slots
 {
-    using System;
-    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
     public class AddSlotFormModel

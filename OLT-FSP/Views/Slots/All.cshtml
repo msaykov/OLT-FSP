@@ -1,0 +1,30 @@
+﻿@model AllSlotsServiceModel
+@{
+    ViewData["Title"] = "All Slots";
+}
+
+
+<table class="table table-hover">
+    <thead>
+        <tr class="clickable text-center">
+            <th scope="col">Device Name</th>
+            <th scope="col">Slot Number</th>
+            <th scope="col">Ports Count</th>
+            <th scope="col">Used Ports</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var slot in Model.Slots)
+        {
+            <tr class="clickable text-center">
+                <td>@slot.DeviceName</td>
+                <td>@slot.SlotNumber</td>
+                <td>@slot.PortsCount</td>
+                <td>@slot.UsedPorts</td>
+                <td>
+                    <a asp-controller="Ports" asp-action="Add" asp-route-id="@slot.Id" class="btn btn-primary" role="button">Add Port</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

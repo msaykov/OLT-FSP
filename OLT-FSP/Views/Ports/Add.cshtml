@@ -1,0 +1,41 @@
+﻿@model AddPortFormModel;
+@{
+    ViewData["Title"] = "Add Port";
+}
+
+<div class="container">
+    <div class="text-center">
+        <h1 class="display-4">@ViewData["Title"]</h1>
+
+    </div>
+
+    <form method="post">
+        <div class="form-group">
+            <label asp-for="Zone"></label>
+            <input asp-for="Zone" class="form-control" id="validationTooltip01" placeholder="Mladost, Lulin ...">
+            <span asp-validation-for="Zone" class="small text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Path"></label>
+            <input asp-for="Path" class="form-control" id="validationTooltip01" placeholder="Cross connect positions ...">
+            <span asp-validation-for="Path" class="small text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Description"></label>
+            <input asp-for="Description" class="form-control" id="validationTooltip01" placeholder="Business customers , Residential customers...">
+            <span asp-validation-for="Description" class="small text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Destination"></label>
+            <input asp-for="Destination" class="form-control" id="validationTooltip01" placeholder="Coremap Id">
+            <span asp-validation-for="Destination" class="small text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Notes"></label>
+            <input asp-for="Notes" class="form-control" id="validationTooltip01" placeholder="Splitter 1/2 in closure ...">
+            <span asp-validation-for="Notes" class="small text-danger"></span>
+        </div>
+        <input class="btn btn-primary" type="submit" value="Save" />
+    </form>
+
+</div>

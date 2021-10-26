@@ -23,5 +23,7 @@
         public Device Device { get; set; }
 
         public ICollection<Port> Ports { get; set; }
+
+        public bool IsServiceSlot { get; set; }
     }
 }

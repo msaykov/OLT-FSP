@@ -9,7 +9,7 @@
     {
         public int Id { get; set; }
 
-        public int MapNumber { get; set; }
+        public int MapNumber { get; set; }   // Coremap Id
 
         [Required]
         [MaxLength(AddressMaxLength)]

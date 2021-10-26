@@ -12,7 +12,8 @@
             this.slot = slotService;
         }
 
-        public IActionResult Add() => View();
+        public IActionResult Add() 
+            => View();
 
         [HttpPost]
         public IActionResult Add(AddSlotFormModel model, int id)
@@ -29,6 +30,16 @@
             this.slot.Add(model.PortsCount, id);
 
             return RedirectToAction("All", "Devices");
+        }
+
+        public IActionResult All(int id)
+        {
+            var allSlots = slot.All(id);
+            return View(new AllSlotsServiceModel 
+            {
+                Id = id,
+                Slots = allSlots,
+            });
         }
     }
 }
