@@ -53,6 +53,7 @@
             var slotsQuery = GetAllSlots(deviceId);
             var deviceEntity = GetDeviceById(deviceId);
             return slotsQuery
+                .Where(sq => sq.IsServiceSlot != true)
                 .Select(s => new SlotServiceModel
                 {
                     Id = s.Id,

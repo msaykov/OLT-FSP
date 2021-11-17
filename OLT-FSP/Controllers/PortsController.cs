@@ -7,9 +7,9 @@
     public class PortsController : Controller
     {
         private readonly IPortService port;
-        public PortsController(IPortService portsService)
+        public PortsController(IPortService portService)
         {
-            this.port = portsService;
+            this.port = portService;
         }
 
         public IActionResult Add()
@@ -22,7 +22,7 @@
             {
                 return View(model);
             }
-            this.port.Add(id);
+            this.port.Add(model.Path, model.Zone, model.Destination, model.Description, model.CoremapNumber, model.Notes, id);
             return View();
         }
     }

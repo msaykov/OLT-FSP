@@ -24,7 +24,7 @@
         public const int DescriptionMinLength = 15;
         public const int DescriptionMaxLength = 50;
         public const int DestinationMinLength = 4;
-        public const int DestinationMaxLength = 7;
+        public const int DestinationMaxLength = 50;
         public const int NotesMinLength = 5;
         public const int NotesMaxLength = 200;
 

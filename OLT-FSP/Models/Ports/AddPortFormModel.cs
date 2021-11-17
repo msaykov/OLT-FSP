@@ -21,13 +21,17 @@
         [StringLength(DescriptionMaxLength, MinimumLength = DescriptionMinLength, ErrorMessage = NamesErrorMsg)]
         public string Description { get; set; } // Residential customers , Business customers ... 
 
-        [Display(Name = "Destination ID")]
+        [Display(Name = "Destination Address")]
         [Required]
         [StringLength(DestinationMaxLength, MinimumLength = DestinationMinLength, ErrorMessage = NamesErrorMsg)]
         public string Destination { get; set; }
 
+        [Display(Name = "Destination Id")]
+        [Required]
+        public int CoremapNumber { get; set; } // Coremap Id
+
         [Required]
         [StringLength(NotesMaxLength, MinimumLength = NotesMinLength, ErrorMessage = NamesErrorMsg)]
-        public string Notes { get; set; }  // 1/2 in Cabinet , ....
+        public string Notes { get; set; }  // 1/2 in Cabinet , ....   
     }
 }
