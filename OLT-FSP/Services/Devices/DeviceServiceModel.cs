@@ -15,5 +15,6 @@
         public int OltSlots { get; set; }
         public int OltPorts { get; set; }
         public int OltFreePorts { get; set; }
+        
     }
 }

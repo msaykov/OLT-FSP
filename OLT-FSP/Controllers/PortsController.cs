@@ -23,7 +23,20 @@
                 return View(model);
             }
             this.port.Add(model.Path, model.Zone, model.Destination, model.Description, model.CoremapNumber, model.Notes, id);
-            return View();
+            return RedirectToAction("All" ,"Devices");
+        }
+
+        //public IActionResult All()
+        //    => View();
+
+        public IActionResult All(string destinationId, string destinationAddress)
+        {
+            var portsQuery = port.All(destinationAddress, destinationId);
+            return View(new SearchPortServiceModel
+            {
+                Id = 5, // ??????
+                Ports = portsQuery,
+            });
         }
     }
 }

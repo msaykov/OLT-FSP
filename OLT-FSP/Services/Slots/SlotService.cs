@@ -60,10 +60,15 @@
                     DeviceName = deviceEntity.Name,
                     SlotNumber = s.Number,
                     PortsCount = s.PortsCount,
-                    UsedPorts = s.Ports.Count(),                    
+                    UsedPorts = GetPortsCount(s.Id),            
                 })
                 .ToList();
         }
+
+        private int GetPortsCount(int id)
+            => this.data.Ports
+            .Where(p => p.SlotId == id)
+            .Count();
 
         private ICollection<Slot> GetAllSlots(int deviceId)
             => this.data

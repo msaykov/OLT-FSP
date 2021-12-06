@@ -46,12 +46,12 @@
             <thead>
                 <tr class="clickable text-center">
                     <th scope="col">Town</th>
-                    <th scope="col">DataCenter</th>
+                    <th scope="col">Data Center</th>
                     <th scope="col">Manifacturer</th>
-                    <th scope="col">OltName</th>
-                    <th scope="col">OltSlots</th>
-                    <th scope="col">OltPorts</th>
-                    <th scope="col">OltFreePorts</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Slots</th>
+                    <th scope="col">Ports</th>
+                    <th scope="col">Free Ports</th>
                 </tr>
             </thead>
             <tbody>
@@ -69,7 +69,7 @@
                         <a asp-controller="Slots" asp-action="Add" asp-route-id="@device.Id" class="btn btn-primary" role="button">Add Slot</a>
                     </td>
                     <td>
-                        <a asp-controller="Slots" asp-action="All" asp-route-id="@device.Id" class="btn btn-primary" role="button">Show Slots</a>
+                        <a asp-controller="Slots" asp-action="All" asp-route-id="@device.Id" class="btn btn-primary" role="button">Slots Info</a>
                     </td>
                 </tr>
                 }

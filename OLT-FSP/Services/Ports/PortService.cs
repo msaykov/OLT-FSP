@@ -29,7 +29,8 @@
                 destinationEntity = new Destination
                 {
                     Address = destinationAddress,
-                    MapNumber = coremapNumber
+                    MapNumber = coremapNumber,
+                    Zone = zone,
                 };
             } 
 
@@ -37,15 +38,79 @@
             {
                 Number = portsCount,
                 Path = path,
-                Zone = zone,
                 Description = description,
                 Notes = notes,
                 Destination = destinationEntity,
+                PortFullName = $"0/{currentSlot.Number}/{portsCount}",
             };
 
             currentSlot.Ports.Add(portEntity);
             this.data.SaveChanges();
 
+        }
+
+        public ICollection<PortServiceModel> All(string destinationAddress, string coremapNumber)
+        {
+            var portsQuery = this.data
+                .Ports
+                .AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(destinationAddress))
+            {
+                portsQuery = portsQuery
+                    .Where(p => p.Destination.Address.ToLower().Contains(destinationAddress.ToLower()));
+            }
+
+            if (!string.IsNullOrWhiteSpace(coremapNumber))
+            {
+                int coremapId;
+                var success = int.TryParse(coremapNumber, out coremapId);
+                if (success)
+                {
+                    portsQuery = portsQuery
+                    .Where(p => p.Destination.MapNumber == coremapId);
+                }
+                else
+                {
+                    // Error message
+                }                
+            }            
+            
+            var portsList = portsQuery
+                .OrderBy(p => p.Number)
+                .Select(pq => new PortServiceModel
+                {
+                    DeviceFullName = pq.Slot.Device.DeviceFullName, // GetDeviceFullName(pq.SlotId),
+                    PortFullName = pq.PortFullName,
+                    Zone = pq.Destination.Zone,
+                    DestinationId = pq.Destination.MapNumber,
+                    DestinationAddress = pq.Destination.Address,
+                    Path = pq.Path,
+                    Description = pq.Description,
+                    Notes = pq.Notes,
+                })
+                .ToList();
+
+            return portsList;
+
+        }
+
+       
+        private string GetDeviceFullName(int slotId)
+        {
+            var deviceName = this.data
+                .Slots
+                .Where(s => s.Id == slotId)
+                .Select(d => d.Device.Name)
+                .FirstOrDefault();
+
+            var dataCenter = this.data
+                .Slots
+                .Where(s => s.Id == slotId)
+                .Select(c => c.Device.DataCenter.Name)
+                .FirstOrDefault();
+
+            return $"{deviceName} {dataCenter}";
         }
 
         private Destination GetDestinationByCoremapId(int coremapNumber)

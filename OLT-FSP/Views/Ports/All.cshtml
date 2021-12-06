@@ -1,0 +1,65 @@
+﻿@model SearchPortServiceModel
+@{
+    ViewData["Title"] = "All Ports";
+}
+
+<div class="container">
+    <div class="text-center">
+        <h1 class="display-4">@ViewData["Title"]</h1>
+    </div>
+    @*<form method="GET">
+            <div class="row mb-5">
+                <div class="form-group col-md-4">
+                    <label asp-for="DestinationAddres"></label>
+                    <select asp-for="DataCenter" class="form-control">
+                        <option value="">all</option>
+                        @foreach (var center in Model.Ports)
+                        {
+                            <option value="@center">@center</option>
+                        }
+                    </select>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="TownName"></label>
+                    <input asp-for="TownName" class="form-control" id="validationTooltip01" placeholder="Town name...">
+                    <span asp-validation-for="TownName" class="small text-danger"></span>
+                </div>
+
+            </div>
+            <button class="btn btn-primary">Search</button>
+        </form>*@
+
+    <table class="table table-hover">
+        <thead>
+            <tr class="clickable text-center">
+                <th scope="col">Device Name</th>
+                <th scope="col">Port</th>
+                <th scope="col">DestinationId</th>
+                <th scope="col">DestinationAddress</th>
+                <th scope="col">Description</th>
+                <th scope="col">Zone</th>
+                <th scope="col">Notes</th>
+                <th scope="col">Path</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var port in Model.Ports)
+            {
+                <tr class="clickable text-center">
+                    <td>@port.DeviceFullName</td>
+                    <td>@port.PortFullName</td>
+                    <td>@port.DestinationId</td>
+                    <td>@port.DestinationAddress</td>
+                    <td>@port.Description</td>
+                    <td>@port.Zone</td>
+                    <td>@port.Notes</td>
+                    <td>@port.Path</td>
+                    @*<td>
+                        <a asp-controller="Ports" asp-action="Add" asp-route-id="@slot.Id" class="btn btn-primary" role="button">Add Port</a>
+                    </td>*@
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>

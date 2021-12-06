@@ -27,6 +27,7 @@
                 Name = $"OLT-{devicesCount + 1}",
                 Manifacturer = manifacturer,
                 DataCenter = DataCenterEntity,
+                DeviceFullName = $"OLT-{devicesCount + 1} {dataCenter}",
             };
 
             this.data.Devices.Add(deviceEntity);
@@ -50,7 +51,7 @@
                 devicesQuery = devicesQuery
                     .Where(d => d.DataCenter.Town.Name.ToLower().Contains(townName.ToLower()));
             }
-
+            
             return devicesQuery
                 .OrderBy(d => d.DataCenter.Name)
                 .Select(d => new DeviceServiceModel
@@ -61,8 +62,8 @@
                     Manifacturer = d.Manifacturer,
                     OltName = d.Name,
                     OltSlots = d.Slots.Count(),
-                    
-
+                    OltPorts = this.data.Slots.Where(s => s.DeviceId == d.Id).Sum(s => s.PortsCount),
+                    //OltFreePorts = this.data.Slots.Where(s => s.DeviceId == d.Id).Sum(s => s.Ports.Count()),
                 })
                 .ToList();
         }

@@ -14,5 +14,8 @@
         [Required]
         [MaxLength(AddressMaxLength)]
         public string Address { get; set; }
+
+        [MaxLength(ZoneMaxLength)]
+        public string Zone { get; set; }
     }
 }

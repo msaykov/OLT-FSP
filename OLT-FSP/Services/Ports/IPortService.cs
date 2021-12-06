@@ -8,5 +8,7 @@
     public interface IPortService
     {
         void Add(string path, string zone, string destinationAddress, string description, int coremapNumber, string notes, int slotId);
+
+        ICollection<PortServiceModel> All(string destinationAddress, string coremapNumber);
     }
 }

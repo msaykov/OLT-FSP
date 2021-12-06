@@ -25,6 +25,11 @@
 
         public ICollection<Slot> Slots { get; set; }
 
+        public string DeviceFullName { get; set; }
+
+
+
+
 
     }
 }

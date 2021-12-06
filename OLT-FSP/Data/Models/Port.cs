@@ -8,10 +8,7 @@
         public int Id { get; set; }
 
         public int Number { get; set; }
-
-        [MaxLength(ZoneMaxLength)]
-        public string Zone { get; set; }
-
+        
         [Required]
         [MaxLength(PathMaxLength)]
         public string Path { get; set; }   // Rack-1 , ODF-1 , port 5 ....  
@@ -30,5 +27,7 @@
         public int SlotId { get; set; }
 
         public Slot Slot { get; set; }
+
+        public string PortFullName { get; set; }
     }
 }

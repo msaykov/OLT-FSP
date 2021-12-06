@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OLT_FSP.Data;
 
 namespace OLT_FSP.Data.Migrations
 {
     [DbContext(typeof(OltDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211129115909_AddNewColumnToPortTable")]
+    partial class AddNewColumnToPortTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -256,10 +258,6 @@ namespace OLT_FSP.Data.Migrations
                     b.Property<int>("MapNumber")
                         .HasColumnType("int");
 
-                    b.Property<string>("Zone")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
                     b.HasKey("Id");
 
                     b.ToTable("Destinations");
@@ -274,9 +272,6 @@ namespace OLT_FSP.Data.Migrations
 
                     b.Property<int>("DataCenterId")
                         .HasColumnType("int");
-
-                    b.Property<string>("DeviceFullName")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Manifacturer")
                         .IsRequired()
@@ -321,11 +316,15 @@ namespace OLT_FSP.Data.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("PortFullName")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("SlotId")
                         .HasColumnType("int");
+
+                    b.Property<string>("Zone")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("portFullName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
