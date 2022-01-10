@@ -19,7 +19,7 @@
             var slotsCount = GetSlotsCount(deviceId);
             if (slotsCount == FullOlt)
             {
-                return;
+                return; // Error Message
             }
             if (slotsCount == EmptyOltSlots)
             {
@@ -37,7 +37,8 @@
                 Number = GetSlotsCount(deviceId),
                 PortsCount = ports,
                 IsServiceSlot = false,
-            };
+            };            
+
             currentDevice.Slots.Add(slotEntity);
             this.data.SaveChanges();
 

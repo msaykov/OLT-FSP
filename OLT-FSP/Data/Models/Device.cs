@@ -14,6 +14,8 @@
 
         [MaxLength(DeviceNameMaxLength)]
         public string Name { get; set; }  // OLT-1 , automatically given
+        
+        public string DeviceFullName { get; set; }
 
         [Required]
         [MaxLength(ManifacturerNameMaxLength)]
@@ -25,7 +27,6 @@
 
         public ICollection<Slot> Slots { get; set; }
 
-        public string DeviceFullName { get; set; }
 
 
 

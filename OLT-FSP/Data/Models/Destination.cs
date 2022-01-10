@@ -7,6 +7,10 @@
 
     public class Destination
     {
+        public Destination()
+        {
+            this.Paths = new List<Path>();
+        }
         public int Id { get; set; }
 
         public int MapNumber { get; set; }   // Coremap Id
@@ -17,5 +21,17 @@
 
         [MaxLength(ZoneMaxLength)]
         public string Zone { get; set; }
+
+        //public int PathId { get; set; }
+
+        //public Path Path { get; set; }
+
+        public ICollection<Path> Paths { get; set; }
+
+        public int PortId { get; set; }
+
+        public Port Port { get; set; }
+
+
     }
 }

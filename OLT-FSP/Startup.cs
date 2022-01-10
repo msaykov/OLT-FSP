@@ -12,6 +12,7 @@ namespace OLT_FSP
     using OLT_FSP.Services.Devices;
     using OLT_FSP.Services.Ports;
     using OLT_FSP.Services.Slots;
+    using OLT_FSP.Services.Targets;
 
     public class Startup
     {
@@ -36,6 +37,7 @@ namespace OLT_FSP
             services.AddTransient<IDeviceService, DeviceService>();
             services.AddTransient<ISlotService, SlotService>();
             services.AddTransient<IPortService, PortService>();
+            services.AddTransient<ITargetService, TargetService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,6 +1,7 @@
 ﻿namespace OLT_FSP.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
+    using OLT_FSP.Data.Models;
     using OLT_FSP.Models.Ports;
     using OLT_FSP.Services.Ports;
 
@@ -22,8 +23,8 @@
             {
                 return View(model);
             }
-            this.port.Add(model.Path, model.Zone, model.Destination, model.Description, model.CoremapNumber, model.Notes, id);
-            return RedirectToAction("All" ,"Devices");
+            this.port.Add(model.Path,  model.Description,  model.Notes, id);
+            return RedirectToAction("All" ,"Ports");
         }
 
         //public IActionResult All()

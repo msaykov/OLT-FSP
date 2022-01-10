@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OLT_FSP.Data;
 
 namespace OLT_FSP.Data.Migrations
 {
     [DbContext(typeof(OltDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220109151524_AddPathAndSplitterTables")]
+    partial class AddPathAndSplitterTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -256,7 +258,10 @@ namespace OLT_FSP.Data.Migrations
                     b.Property<int>("MapNumber")
                         .HasColumnType("int");
 
-                    b.Property<int>("PortId")
+                    b.Property<int>("PathId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("PortId")
                         .HasColumnType("int");
 
                     b.Property<string>("Zone")
@@ -321,7 +326,8 @@ namespace OLT_FSP.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DestinationId");
+                    b.HasIndex("DestinationId")
+                        .IsUnique();
 
                     b.HasIndex("SplitterId");
 
@@ -487,13 +493,9 @@ namespace OLT_FSP.Data.Migrations
 
             modelBuilder.Entity("OLT_FSP.Data.Models.Destination", b =>
                 {
-                    b.HasOne("OLT_FSP.Data.Models.Port", "Port")
+                    b.HasOne("OLT_FSP.Data.Models.Port", null)
                         .WithMany("Targets")
-                        .HasForeignKey("PortId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Port");
+                        .HasForeignKey("PortId");
                 });
 
             modelBuilder.Entity("OLT_FSP.Data.Models.Device", b =>
@@ -510,9 +512,9 @@ namespace OLT_FSP.Data.Migrations
             modelBuilder.Entity("OLT_FSP.Data.Models.Path", b =>
                 {
                     b.HasOne("OLT_FSP.Data.Models.Destination", "Destination")
-                        .WithMany("Paths")
-                        .HasForeignKey("DestinationId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .WithOne("Path")
+                        .HasForeignKey("OLT_FSP.Data.Models.Path", "DestinationId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("OLT_FSP.Data.Models.Splitter", "Splitter")
@@ -555,7 +557,7 @@ namespace OLT_FSP.Data.Migrations
 
             modelBuilder.Entity("OLT_FSP.Data.Models.Destination", b =>
                 {
-                    b.Navigation("Paths");
+                    b.Navigation("Path");
                 });
 
             modelBuilder.Entity("OLT_FSP.Data.Models.Device", b =>

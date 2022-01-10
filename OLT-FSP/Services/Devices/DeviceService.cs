@@ -25,9 +25,9 @@
             var deviceEntity = new Device
             {
                 Name = $"OLT-{devicesCount + 1}",
+                DeviceFullName = $"OLT-{devicesCount + 1} {dataCenter}",
                 Manifacturer = manifacturer,
                 DataCenter = DataCenterEntity,
-                DeviceFullName = $"OLT-{devicesCount + 1} {dataCenter}",
             };
 
             this.data.Devices.Add(deviceEntity);

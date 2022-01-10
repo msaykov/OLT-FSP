@@ -18,6 +18,9 @@
         public DbSet<Port> Ports { get; set; }
         public DbSet<Destination> Destinations { get; set; }
 
+        public DbSet<Path> Paths { get; set; }
+        public DbSet<Splitter> Splitters { get; set; }
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -49,6 +52,25 @@
                 .HasOne(p => p.Slot)
                 .WithMany(s => s.Ports)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            builder
+                .Entity<Path>()
+                .HasOne(p => p.Splitter)
+                .WithMany(s => s.Paths)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder
+                .Entity<Path>()
+                .HasOne(p => p.Destination)
+                .WithMany(d => d.Paths)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder
+                .Entity<Destination>()
+                .HasOne(p => p.Port)
+                .WithMany(d => d.Targets)
+                .OnDelete(DeleteBehavior.Restrict);
+
 
             base.OnModelCreating(builder);
         }

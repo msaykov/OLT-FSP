@@ -32,34 +32,50 @@
     <table class="table table-hover">
         <thead>
             <tr class="clickable text-center">
+                <th scope="col">DC Name</th>
                 <th scope="col">Device Name</th>
                 <th scope="col">Port</th>
-                <th scope="col">DestinationId</th>
-                <th scope="col">DestinationAddress</th>
-                <th scope="col">Description</th>
+                <th scope="col">DC Connection</th>
+                <th scope="col">DC ODF Out</th>
+                <th scope="col">SDC Name</th>
+                <th scope="col">SDC ODF In</th>
+                <th scope="col">SDC Connection</th>
+                <th scope="col">SDC ODF Out</th>
+                <th scope="col">Coremap Id</th>
+                <th scope="col">Address</th>                
                 <th scope="col">Zone</th>
                 <th scope="col">Notes</th>
-                <th scope="col">Path</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var port in Model.Ports)
             {
-                <tr class="clickable text-center">
-                    <td>@port.DeviceFullName</td>
-                    <td>@port.PortFullName</td>
-                    <td>@port.DestinationId</td>
-                    <td>@port.DestinationAddress</td>
-                    <td>@port.Description</td>
-                    <td>@port.Zone</td>
-                    <td>@port.Notes</td>
-                    <td>@port.Path</td>
-                    @*<td>
+                foreach (var target in port.Targets)
+                {
+                    <tr class="clickable text-center">
+                        <td>@port.DataCenterName</td>
+                        <td>@port.DeviceFullName</td>
+                        <td>@port.PortFullName</td>
+                        <td>@port.DataCenterSplit</td>
+                        <td>@port.DataCenterOdfOut</td>
+                        <td>@port.SecondDataCenterName</td>
+                        <td>@port.SecondDataCenterOdfIn</td>
+                        <td>@port.SecondDataCenterSplit</td>
+                        <td>@port.SecondDataCenterOdfOut</td>
+                        <td>@target.MapNumber</td>
+                        <td>@target.Address</td>
+                        <td>@target.Zone</td>
+                        <td>@port.Description</td>
+
+                 
+
+                        @*<td>
                         <a asp-controller="Ports" asp-action="Add" asp-route-id="@slot.Id" class="btn btn-primary" role="button">Add Port</a>
                     </td>*@
-                </tr>
+                    </tr>
+                }
             }
-        </tbody>
+            </tbody>
     </table>
 
 </div>
