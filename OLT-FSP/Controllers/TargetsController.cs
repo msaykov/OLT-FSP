@@ -25,7 +25,7 @@
             this.target.Add(model.Destination, model.CoremapNumber, model.Zone, id);
             
 
-            return RedirectToAction("Add", "Ports", new { id = id });
+            return RedirectToAction("All", "Ports");
         }
     }
 }

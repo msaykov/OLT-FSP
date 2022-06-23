@@ -8,6 +8,10 @@
 
     public class Splitter
     {
+        public Splitter()
+        {
+            this.Paths = new List<Path>();
+        }
         public int Id { get; set; }
 
         public int OutputsCount { get; set; }

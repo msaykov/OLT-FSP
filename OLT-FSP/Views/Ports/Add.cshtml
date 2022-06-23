@@ -10,15 +10,15 @@
     </div>
 
     <form method="post">
-        @*<div class="form-group">
-            <label asp-for="Zone"></label>
-            <input asp-for="Zone" class="form-control" id="validationTooltip01" placeholder="Mladost, Lulin ...">
-            <span asp-validation-for="Zone" class="small text-danger"></span>
-        </div>*@
         <div class="form-group">
             <label asp-for="SplitterOutputs"></label>
-            <input asp-for="SplitterOutputs" class="form-control" id="validationTooltip01" placeholder="1, 2, 4, 8, 16, 32 ...">
-            <span asp-validation-for="SplitterOutputs" class="small text-danger"></span>
+            <select asp-for="SplitterOutputs" class="form-control">
+                <option value="1">Direct</option>
+                <option value="2">1/2</option>
+                <option value="3">1/4</option>
+                <option value="4">1/8</option>
+                <option value="5">1/16</option>
+            </select>
         </div>
         <div class="form-group">
             <label asp-for="Path"></label>
@@ -26,20 +26,25 @@
             <span asp-validation-for="Path" class="small text-danger"></span>
         </div>
         <div class="form-group">
+            <label asp-for="Destination"></label>
+            <input asp-for="Destination" class="form-control" id="validationTooltip01" placeholder="cabinet Mladost-3 , bl.324 ...">
+            <span asp-validation-for="Destination" class="small text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="CoremapNumber"></label>
+            <input asp-for="CoremapNumber" class="form-control" id="validationTooltip01" placeholder="Coremap Id...">
+            <span asp-validation-for="CoremapNumber" class="small text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Zone"></label>
+            <input asp-for="Zone" class="form-control" id="validationTooltip01" placeholder="Mladost, Lulin ...">
+            <span asp-validation-for="Zone" class="small text-danger"></span>
+        </div>
+        <div class="form-group">
             <label asp-for="Description"></label>
             <input asp-for="Description" class="form-control" id="validationTooltip01" placeholder="Business customers , Residential customers...">
             <span asp-validation-for="Description" class="small text-danger"></span>
         </div>
-        @*<div class="form-group">
-            <label asp-for="Destination"></label>
-            <input asp-for="Destination" class="form-control" id="validationTooltip01" placeholder="cabinet Mladost-3 , bl.324 ...">
-            <span asp-validation-for="Destination" class="small text-danger"></span>
-        </div>*@
-        @*<div class="form-group">
-            <label asp-for="CoremapNumber"></label>
-            <input asp-for="CoremapNumber" class="form-control" id="validationTooltip01" placeholder="Coremap Id...">
-            <span asp-validation-for="CoremapNumber" class="small text-danger"></span>
-        </div>*@
         <div class="form-group">
             <label asp-for="Notes"></label>
             <input asp-for="Notes" class="form-control" id="validationTooltip01" placeholder="Splitter 1/2 in closure ...">

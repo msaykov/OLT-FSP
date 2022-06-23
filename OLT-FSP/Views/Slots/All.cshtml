@@ -1,6 +1,6 @@
 ﻿@model AllSlotsServiceModel
 @{
-    ViewData["Title"] = "All Slots";
+    ViewData["Title"] = "All slots";
 }
 
 <div class="container">
@@ -26,12 +26,13 @@
                     <td>@slot.PortsCount</td>
                     <td>@slot.UsedPorts</td>
                     <td>
-                        <a asp-controller="Ports" asp-action="Add" asp-route-id="@slot.Id" class="btn btn-primary" role="button">Add Port</a>                        
+                        <a asp-controller="Ports" asp-action="Add" asp-route-id="@slot.Id" class="btn btn-primary" role="button">Add Port</a>
                     </td>
                 </tr>
             }
         </tbody>
     </table>
+    <a asp-controller="Devices" asp-action="All" class="btn btn-primary" role="button">Back</a>
 
 </div>
 

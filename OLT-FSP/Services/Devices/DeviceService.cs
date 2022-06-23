@@ -51,7 +51,11 @@
                 devicesQuery = devicesQuery
                     .Where(d => d.DataCenter.Town.Name.ToLower().Contains(townName.ToLower()));
             }
-            
+
+            //var oltPortsCount = this.data.Slots.Where(s => s.DeviceId == d.Id).Sum(s => s.PortsCount);
+            //var oltFreePorts = this.data.Slots.Where(s => s.DeviceId == d.Id).Sum(s => s.Ports.Count(p => p.IsUsed == false));
+
+
             return devicesQuery
                 .OrderBy(d => d.DataCenter.Name)
                 .Select(d => new DeviceServiceModel
@@ -63,7 +67,7 @@
                     OltName = d.Name,
                     OltSlots = d.Slots.Count(),
                     OltPorts = this.data.Slots.Where(s => s.DeviceId == d.Id).Sum(s => s.PortsCount),
-                    //OltFreePorts = this.data.Slots.Where(s => s.DeviceId == d.Id).Sum(s => s.Ports.Count()),
+                    //OltFreePorts = this.data.Slots.Where(s => s.DeviceId == d.Id).Sum(s => s.Ports.Count(p => p.IsUsed == false)),
                 })
                 .ToList();
         }

@@ -67,9 +67,9 @@
 
             builder
                 .Entity<Destination>()
-                .HasOne(p => p.Port)
-                .WithMany(d => d.Targets)
-                .OnDelete(DeleteBehavior.Restrict);
+                .HasMany(p => p.Ports)
+                .WithMany(d => d.Targets);
+                //.OnDelete(DeleteBehavior.Restrict);
 
 
             base.OnModelCreating(builder);

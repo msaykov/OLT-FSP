@@ -15,20 +15,21 @@
         => this.data = data;
 
         public void Add(
+            string splitterOutputs,
             string path,
-            //string zone,
-            //string destinationAddress,
+            string destinationAddress,
+            int coremapNumber,
+            string zone,
             string description,
-            //int coremapNumber,
             string notes,
             int slotId
             )
         {
             var currentSlot = GetSlotById(slotId);
-            var portsCount = GetPortsCount(slotId);
+            var portsCount = GetUsedPortsCount(slotId);
             if (portsCount == currentSlot.PortsCount)
             {
-                return;// message
+                return;// return error message 
             }
 
 
@@ -40,57 +41,82 @@
                 Notes = notes,                
                 //Destination = destinationEntity,
                 PortFullName = $"0/{currentSlot.Number}/{portsCount}",
-            };
+                IsUsed = true,
+            };        
 
-            //var destinationEntity = GetDestinationByCoremapId(destination.MapNumber);
-            //if (destinationEntity == null)
+            //var splitterEntity = new Splitter
             //{
-            //    destinationEntity = new Destination
-            //    {
-            //        Address = destination.Address,
-            //        MapNumber = destination.MapNumber,
-            //        Zone = destination.Zone,
-            //    };
+            //    OutputsCount = int.Parse(splitterOutputs),
+            //};
+
+            //var pathEntity = new Path
+            //{
+            //    OdfOutPosition = path,
+            //};
+
+            //if (splitterEntity.Paths.Count < splitterEntity.OutputsCount)
+            //{
+            //    splitterEntity.Paths.Add(pathEntity);
             //}
-            //portEntity.Targets.Add(destinationEntity);
+            //else
+            //{
+            //    // return error message
+            //}
+
+            var destinationEntity = GetDestinationByCoremapId(coremapNumber);
+            if (destinationEntity == null)
+            {
+                destinationEntity = new Destination
+                {
+                    Address = destinationAddress,
+                    MapNumber = coremapNumber,
+                    Zone = zone,
+                };
+            }
+            //destinationEntity.Paths.Add(pathEntity);
+            portEntity.Targets.Add(destinationEntity);
 
             currentSlot.Ports.Add(portEntity);
             this.data.SaveChanges();
         }
 
-        public ICollection<PortServiceModel> All(string destinationAddress, string coremapNumber)
+        
+
+        public ICollection<PortServiceModel> All(string coremapId, string address, string port, int id)
         {
+            //var device = this.data
+            //    .Devices
+            //    .Where(d => d.Id == id);
+
             var portsQuery = this.data
                 .Ports
+                .Where(p => p.Slot.Device.Id == id)
                 .AsQueryable();
+            
 
-            if (!string.IsNullOrWhiteSpace(destinationAddress))
+            //if (!string.IsNullOrWhiteSpace(address))
+            //{
+            //    portsQuery = GetPortByTargetAddress(address).ToList();
+
+
+            //}
+
+            if (!string.IsNullOrWhiteSpace(coremapId))
             {
                 portsQuery = portsQuery
-                    .Where(p => p.Targets.Any(t => t.Address.ToLower().Contains(destinationAddress.ToLower())));
+                    .Where(d => d.Targets.Any(t => t.MapNumber == int.Parse(coremapId)));
             }
 
-            if (!string.IsNullOrWhiteSpace(coremapNumber))
-            {
-                int coremapId;
-                var success = int.TryParse(coremapNumber, out coremapId);
-                if (success)
-                {
-                    portsQuery = portsQuery
-                    .Where(p => p.Targets.Any(t => t.MapNumber == coremapId));
-                }
-                else
-                {
-                    // Error message
-                }                
-            }            
-            
-            var portsList = portsQuery
-                .OrderBy(p => p.Number)
+
+
+
+            return portsQuery
+                .OrderBy(p => p.PortFullName)
                 .Select(pq => new PortServiceModel
                 {
+                    Id = pq.Id,
                     DataCenterName = pq.Slot.Device.DataCenter.Name,
-                    DeviceFullName = pq.Slot.Device.DeviceFullName, 
+                    DeviceName = pq.Slot.Device.Name,
                     PortFullName = pq.PortFullName,
                     DataCenterSplit = "Direct port",
                     DataCenterOdfOut = pq.Path,
@@ -99,42 +125,34 @@
                     //DestinationId = pq.Destination.MapNumber,
                     //DestinationAddress = pq.Destination.Address,
                     //Zone = pq.Destination.Zone,
+                    
                 })
                 .ToList();
-
-            return portsList;
 
         }
 
        
-        private string GetDeviceFullName(int slotId)
+        public string GetDeviceFullName(int deviceId)
         {
-            var deviceName = this.data
-                .Slots
-                .Where(s => s.Id == slotId)
-                .Select(d => d.Device.Name)
-                .FirstOrDefault();
+            var device = this.data
+                .Devices
+                .FirstOrDefault(d => d.Id == deviceId);                
 
-            var dataCenter = this.data
-                .Slots
-                .Where(s => s.Id == slotId)
-                .Select(c => c.Device.DataCenter.Name)
-                .FirstOrDefault();
-
-            return $"{deviceName} {dataCenter}";
+            return device.DeviceFullName;
         }
 
         private Destination GetDestinationByCoremapId(int coremapNumber)
             => this.data.Destinations
             .FirstOrDefault(d => d.MapNumber == coremapNumber);
 
-        private int GetPortsCount(int slotId)
+        private int GetUsedPortsCount(int slotId)
             => this.data.Ports
-            .Where(p => p.SlotId == slotId)
+            .Where(p => p.SlotId == slotId && p.IsUsed == true)
             .Count();
 
         private Slot GetSlotById(int slotId)
             => this.data.Slots
-            .FirstOrDefault(s => s.Id == slotId);
+            .FirstOrDefault(s => s.Id == slotId);       
+            
     }
 }

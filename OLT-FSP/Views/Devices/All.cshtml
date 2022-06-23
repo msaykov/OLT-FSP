@@ -66,11 +66,14 @@
                     <td>@device.OltPorts</td>
                     <td>@device.OltFreePorts</td>
                     <td>
-                        <a asp-controller="Slots" asp-action="Add" asp-route-id="@device.Id" class="btn btn-primary" role="button">Add Slot</a>
+                        <a asp-controller="Ports" asp-action="All" asp-route-id="@device.Id" class="btn btn-primary" role="button">Details</a>
                     </td>
-                    <td>
-                        <a asp-controller="Slots" asp-action="All" asp-route-id="@device.Id" class="btn btn-primary" role="button">Slots Info</a>
-                    </td>
+                    @*<td>
+            <a asp-controller="Slots" asp-action="Add" asp-route-id="@device.Id" class="btn btn-primary" role="button">Add Slot</a>
+        </td>
+        <td>
+            <a asp-controller="Slots" asp-action="All" asp-route-id="@device.Id" class="btn btn-primary" role="button">Slots Info</a>
+        </td>*@
                 </tr>
                 }
             </tbody>

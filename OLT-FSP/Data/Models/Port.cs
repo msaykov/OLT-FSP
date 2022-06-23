@@ -37,6 +37,8 @@
 
         public Slot Slot { get; set; }
 
+        public bool IsUsed { get; set; } = false;
+
 
     }
 }

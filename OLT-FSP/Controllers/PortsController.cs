@@ -23,21 +23,26 @@
             {
                 return View(model);
             }
-            this.port.Add(model.Path,  model.Description,  model.Notes, id);
+            this.port.Add(model.SplitterOutputs, model.Path, model.Destination, model.CoremapNumber, model.Zone, model.Description, model.Notes, id);
             return RedirectToAction("All" ,"Ports");
         }
 
-        //public IActionResult All()
-        //    => View();
-
-        public IActionResult All(string destinationId, string destinationAddress)
+        public IActionResult All(string coremapId, string address, string port, int id)
         {
-            var portsQuery = port.All(destinationAddress, destinationId);
+            var allPorts = this.port.All(coremapId, address, port, id);
+            var deviceName = this.port.GetDeviceFullName(id);
             return View(new SearchPortServiceModel
             {
-                Id = 5, // ??????
-                Ports = portsQuery,
+                Id = id,
+                Ports = allPorts,
+                Address = address,
+                CoremapId = coremapId,
+                DeviceFullName = deviceName,
             });
         }
+
+        
+
+
     }
 }

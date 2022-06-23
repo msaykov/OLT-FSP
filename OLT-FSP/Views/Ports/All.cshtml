@@ -4,57 +4,97 @@
 }
 
 <div class="container">
-    <div class="text-center">
-        <h1 class="display-4">@ViewData["Title"]</h1>
-    </div>
-    @*<form method="GET">
-            <div class="row mb-5">
-                <div class="form-group col-md-4">
-                    <label asp-for="DestinationAddres"></label>
-                    <select asp-for="DataCenter" class="form-control">
-                        <option value="">all</option>
-                        @foreach (var center in Model.Ports)
+
+
+</div>
+<div class="text-center">
+    @*<h1 class="display-4">@ViewData["Title"] </h1>*@
+    <h1 class="display-4">@Model.DeviceFullName</h1>
+</div>
+
+@*<form method="GET">
+        <div class="row mb-5">
+            <div class="form-group col-md-4">
+                <label asp-for="Address"></label>
+                <select asp-for="Address" class="form-control">
+                    <option value="">all</option>
+                    @foreach (var port in Model.Ports)
+                    {
+                        @if (port.Targets.Any())
                         {
-                            <option value="@center">@center</option>
+                            foreach (var target in port.Targets)
+                            {
+                                <option value="@target.Address">@target.Address</option>
+                            }
                         }
-                    </select>
-                </div>
-                <div class="form-group col-md-4">
-                    <label asp-for="TownName"></label>
-                    <input asp-for="TownName" class="form-control" id="validationTooltip01" placeholder="Town name...">
-                    <span asp-validation-for="TownName" class="small text-danger"></span>
-                </div>
-
+                    }
+                </select>
             </div>
-            <button class="btn btn-primary">Search</button>
-        </form>*@
+            <div class="form-group col-md-4">
+                <label asp-for="CoremapId"></label>
+                <input asp-for="CoremapId" class="form-control" id="validationTooltip01" placeholder="Coremap Id...">
+                <span asp-validation-for="CoremapId" class="small text-danger"></span>
+            </div>
 
+        </div>
+        <button class="btn btn-primary">Search</button>
+    </form>*@
+
+@*<table class="table table-hover">
+
+    </table>*@
+
+<div class="table-responsive">
     <table class="table table-hover">
         <thead>
             <tr class="clickable text-center">
-                <th scope="col">DC Name</th>
-                <th scope="col">Device Name</th>
-                <th scope="col">Port</th>
+                <th scope="col" style="width: 10%">DC Name</th>
+                <th scope="col" style="width: 5%">Device</th>
+                <th scope="col" style="width: 5%">Port</th>
                 <th scope="col">DC Connection</th>
-                <th scope="col">DC ODF Out</th>
-                <th scope="col">SDC Name</th>
-                <th scope="col">SDC ODF In</th>
-                <th scope="col">SDC Connection</th>
-                <th scope="col">SDC ODF Out</th>
-                <th scope="col">Coremap Id</th>
-                <th scope="col">Address</th>                
+                <th scope="col" style="width: 15%">DC ODF Out</th>
+                @*<th scope="col">SDC Name</th>
+                    <th scope="col">SDC ODF In</th>
+                    <th scope="col">SDC Connection</th>
+                    <th scope="col">SDC ODF Out</th>*@
+                <th scope="col" style="width: 10%">Coremap Id</th>
+                <th scope="col" style="width: 20%">Address</th>
                 <th scope="col">Zone</th>
-                <th scope="col">Notes</th>
+                @*<th scope="col">Notes</th>*@
             </tr>
         </thead>
         <tbody>
             @foreach (var port in Model.Ports)
             {
-                foreach (var target in port.Targets)
+                @if (port.Targets.Any())
+                {
+                    foreach (var target in port.Targets)
+                    {
+                        <tr class="clickable text-center">
+                            <td>@port.DataCenterName</td>
+                            <td>@port.DeviceName</td>
+                            <td>@port.PortFullName</td>
+                            <td>@port.DataCenterSplit</td>
+                            <td>@port.DataCenterOdfOut</td>
+                            @*<td>@port.SecondDataCenterName</td>
+                                <td>@port.SecondDataCenterOdfIn</td>
+                                <td>@port.SecondDataCenterSplit</td>
+                                <td>@port.SecondDataCenterOdfOut</td>*@
+                            <td>@target.MapNumber</td>
+                            <td>@target.Address</td>
+                            <td>@target.Zone</td>
+                            @*<td>@port.Description</td>*@
+                            <td>
+                                <a asp-controller="Targets" asp-action="Add" asp-route-id="@port.Id" class="btn btn-primary" role="button">Add Target</a>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
                 {
                     <tr class="clickable text-center">
                         <td>@port.DataCenterName</td>
-                        <td>@port.DeviceFullName</td>
+                        <td>@port.DeviceName</td>
                         <td>@port.PortFullName</td>
                         <td>@port.DataCenterSplit</td>
                         <td>@port.DataCenterOdfOut</td>
@@ -62,20 +102,19 @@
                         <td>@port.SecondDataCenterOdfIn</td>
                         <td>@port.SecondDataCenterSplit</td>
                         <td>@port.SecondDataCenterOdfOut</td>
-                        <td>@target.MapNumber</td>
-                        <td>@target.Address</td>
-                        <td>@target.Zone</td>
+                        <td>N/A</td>
+                        <td>N/A</td>
+                        <td>N/A</td>
                         <td>@port.Description</td>
-
-                 
-
-                        @*<td>
-                        <a asp-controller="Ports" asp-action="Add" asp-route-id="@slot.Id" class="btn btn-primary" role="button">Add Port</a>
-                    </td>*@
+                        <td>
+                            <a asp-controller="Targets" asp-action="Add" asp-route-id="@port.Id" class="btn btn-primary" role="button">Add Target</a>
+                        </td>
                     </tr>
                 }
             }
-            </tbody>
+        </tbody>
     </table>
-
+    <a asp-controller="Devices" asp-action="All" class="btn btn-primary" role="button">Back</a>
 </div>
+
+

@@ -10,6 +10,7 @@
         public Destination()
         {
             this.Paths = new List<Path>();
+            this.Ports = new List<Port>();
         }
         public int Id { get; set; }
 
@@ -27,10 +28,11 @@
         //public Path Path { get; set; }
 
         public ICollection<Path> Paths { get; set; }
+        public ICollection<Port> Ports { get; set; }
 
-        public int PortId { get; set; }
+        //public int PortId { get; set; }
 
-        public Port Port { get; set; }
+        //public Port Port { get; set; }
 
 
     }

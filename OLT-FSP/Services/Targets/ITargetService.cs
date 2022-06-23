@@ -4,6 +4,6 @@
 
     public interface ITargetService
     {
-        void Add(string address, int mapNumber, string zone, int slotId);
+        void Add(string address, int mapNumber, string zone, int portId);
     }
 }

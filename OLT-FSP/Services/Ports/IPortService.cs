@@ -9,15 +9,20 @@
     public interface IPortService
     {
         void Add(
-            string path, 
-            //string zone, 
-            //string destinationAddress, 
+            string splitterOutputs,
+            string path,
+            string destinationAddress,
+            int coremapNumber,
+            string zone,
             string description, 
-            //int coremapNumber, 
             string notes, 
             int slotId
             );
 
-        ICollection<PortServiceModel> All(string destinationAddress, string coremapNumber);
+        //void AddPortConnection();
+
+        ICollection<PortServiceModel> All(string coremapId, string address, string port, int id);
+
+        string GetDeviceFullName(int id);
     }
 }

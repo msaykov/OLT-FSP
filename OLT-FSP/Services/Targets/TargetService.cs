@@ -12,7 +12,7 @@
             this.data = data;
         }
 
-        public void Add(string address, int mapNumber, string zone, int slotId)
+        public void Add(string address, int mapNumber, string zone, int portId)
         {
             var targetEntity = this.data
                 .Destinations
@@ -24,6 +24,7 @@
                     Address = address,
                     MapNumber = mapNumber,
                     Zone = zone,
+                    //PortId = portId,
                 };
             }
             this.data.Destinations.Add(targetEntity);
