@@ -81,18 +81,21 @@
         }
 
         
-
         public ICollection<PortServiceModel> All(string coremapId, string address, string port, int id)
         {
-            //var device = this.data
-            //    .Devices
-            //    .Where(d => d.Id == id);
 
             var portsQuery = this.data
                 .Ports
+                .AsQueryable();
+
+            if (id !=0)
+            {
+            portsQuery = portsQuery
                 .Where(p => p.Slot.Device.Id == id)
                 .AsQueryable();
-            
+            }
+
+
 
             //if (!string.IsNullOrWhiteSpace(address))
             //{
@@ -125,13 +128,13 @@
                     //DestinationId = pq.Destination.MapNumber,
                     //DestinationAddress = pq.Destination.Address,
                     //Zone = pq.Destination.Zone,
-                    
+
                 })
                 .ToList();
 
         }
 
-       
+
         public string GetDeviceFullName(int deviceId)
         {
             var device = this.data

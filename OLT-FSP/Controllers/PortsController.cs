@@ -27,10 +27,26 @@
             return RedirectToAction("All" ,"Ports");
         }
 
+        //public IActionResult All(string coremapId, string address, string port, int id)
+        //{
+        //    var allPorts = this.port.All(coremapId, address, port);
+        //    return View(new SearchPortServiceModel
+        //    {
+        //        Ports = allPorts,
+        //        Address = address,
+        //        CoremapId = coremapId,
+        //    });
+        //}
+
         public IActionResult All(string coremapId, string address, string port, int id)
         {
             var allPorts = this.port.All(coremapId, address, port, id);
-            var deviceName = this.port.GetDeviceFullName(id);
+
+            string deviceName = null;
+            if (id != 0)
+            {
+                deviceName = this.port.GetDeviceFullName(id);
+            }
             return View(new SearchPortServiceModel
             {
                 Id = id,
@@ -41,7 +57,7 @@
             });
         }
 
-        
+
 
 
     }
