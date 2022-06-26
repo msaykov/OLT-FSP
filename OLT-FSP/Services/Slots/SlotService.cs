@@ -29,24 +29,45 @@
             {
                 AddServiceSlot(deviceId, slotsCount);
                 AddServiceSlot(deviceId, slotsCount);
-            }
-            
+            }            
+
             var slotEntity = new Slot
             {
                 Device = currentDevice,
                 Number = GetSlotsCount(deviceId),
                 PortsCount = ports,
                 IsServiceSlot = false,
-            };            
+                Ports = FillSlotWithPorts(ports, deviceId),
+        };
 
             currentDevice.Slots.Add(slotEntity);
             this.data.SaveChanges();
+
 
             if (GetSlotsCount(deviceId) == AllSlotsMounted)
             {
                 AddServiceSlot(deviceId, slotsCount);
                 AddServiceSlot(deviceId, slotsCount);
             }
+        }
+
+        private ICollection<Port> FillSlotWithPorts(int ports, int deviceId)
+        {
+            var portCollection = new List<Port>();
+            for (int i = 0; i < ports; i++)
+            {
+                var portEntity = new Port
+                {
+                    Number = i,
+                    PortFullName = $"0/{this.GetSlotsCount(deviceId)}/{i}",
+                    Path = "N/A",
+                    Description = "N/A",
+                    Notes = "N/A",
+                    IsUsed = false,
+                };
+                portCollection.Add(portEntity);
+            }
+            return portCollection;
         }
 
         public ICollection<SlotServiceModel> All(int deviceId)

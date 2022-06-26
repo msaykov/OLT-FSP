@@ -21,7 +21,7 @@
 
         //void AddPortConnection();
 
-        ICollection<PortServiceModel> All(string coremapId, string address, string port, int id);
+        ICollection<PortServiceModel> All(string coremapId, string address, string port, int deviceId);
 
         string GetDeviceFullName(int id);
     }

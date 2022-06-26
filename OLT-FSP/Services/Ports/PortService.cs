@@ -81,17 +81,17 @@
         }
 
         
-        public ICollection<PortServiceModel> All(string coremapId, string address, string port, int id)
+        public ICollection<PortServiceModel> All(string coremapId, string address, string port, int deviceId)
         {
 
             var portsQuery = this.data
                 .Ports
                 .AsQueryable();
 
-            if (id !=0)
+            if (deviceId !=0)
             {
             portsQuery = portsQuery
-                .Where(p => p.Slot.Device.Id == id)
+                .Where(p => p.Slot.Device.Id == deviceId)
                 .AsQueryable();
             }
 
