@@ -19,7 +19,17 @@
             int slotId
             );
 
-        //void AddPortConnection();
+        EditPortServiceModel Edit(int portId);
+
+        void Edit(
+            string splitterOutputs,
+            string odfPort,
+            string destinationAddress,
+            int coremapNumber,
+            string zone,
+            string notes,
+            int portId
+            );
 
         ICollection<PortServiceModel> All(string coremapId, string address, string port, int deviceId);
 

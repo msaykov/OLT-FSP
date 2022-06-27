@@ -20,22 +20,22 @@
 
 <form method="GET">
     <div class="row mb-5">
-        @*<div class="form-group col-md-4">
-            <label asp-for="Address"></label>
-            <select asp-for="Address" class="form-control">
-                <option value="">all</option>
-                @foreach (var port in Model.Ports)
-                {
-                    @if (port.Targets.Any())
+        <div class="form-group col-md-4">
+                <label asp-for="Address"></label>
+                <select asp-for="Address" class="form-control">
+                    <option value="">all</option>
+                    @foreach (var port in Model.Ports)
                     {
-                        foreach (var target in port.Targets)
+                        @if (port.Targets.Any())
                         {
-                            <option value="@target.Address">@target.Address</option>
+                            foreach (var target in port.Targets)
+                            {
+                                <option value="@target.Address">@target.Address</option>
+                            }
                         }
                     }
-                }
-            </select>
-        </div>*@
+                </select>
+            </div>
         <div class="form-group col-md-4">
             <label asp-for="CoremapId"></label>
             <input asp-for="CoremapId" class="form-control" id="validationTooltip01" placeholder="Coremap Id...">
@@ -43,8 +43,8 @@
         </div>
         <button class="btn btn-primary">Search</button>
     </div>
-        
-    </form>
+
+</form>
 
 
 <div class="table-responsive">
@@ -90,7 +90,7 @@
                                 <td>@target.Zone</td>
                                 <td>@port.Description</td>
                                 <td>
-                                    <a asp-controller="Targets" asp-action="Add" asp-route-id="@port.Id" class="btn btn-primary" role="button">Add Target</a>
+                                    <a asp-controller="Ports" asp-action="Edit" asp-route-id="@port.Id" class="btn btn-primary" role="button">Edit port</a>
                                 </td>
                             </tr>
                         }
@@ -104,15 +104,15 @@
                             <td>@port.DataCenterSplit</td>
                             <td>@port.DataCenterOdfOut</td>
                             @*<td>@port.SecondDataCenterName</td>
-                            <td>@port.SecondDataCenterOdfIn</td>
-                            <td>@port.SecondDataCenterSplit</td>
-                            <td>@port.SecondDataCenterOdfOut</td>*@
+                                <td>@port.SecondDataCenterOdfIn</td>
+                                <td>@port.SecondDataCenterSplit</td>
+                                <td>@port.SecondDataCenterOdfOut</td>*@
                             <td>FREE</td>
                             <td>FREE</td>
                             <td>FREE</td>
                             <td>@port.Description</td>
                             <td>
-                                <a asp-controller="Targets" asp-action="Add" asp-route-id="@port.Id" class="btn btn-primary" role="button">Add Target</a>
+                                <a asp-controller="Ports" asp-action="Edit" asp-route-id="@port.Id" class="btn btn-primary" role="button">Edit port</a>
                             </td>
                         </tr>
                     }
@@ -161,7 +161,7 @@
                                 <td>@target.Zone</td>
                                 <td>@port.Description</td>
                                 <td>
-                                    <a asp-controller="Targets" asp-action="Add" asp-route-id="@port.Id" class="btn btn-primary" role="button">Add Target</a>
+                                    <a asp-controller="Ports" asp-action="Edit" asp-route-id="@port.Id" class="btn btn-primary" role="button">Edit port</a>
                                 </td>
                             </tr>
                         }
@@ -175,27 +175,26 @@
                             <td>@port.DataCenterSplit</td>
                             <td>@port.DataCenterOdfOut</td>
                             @*<td>@port.SecondDataCenterName</td>
-                            <td>@port.SecondDataCenterOdfIn</td>
-                            <td>@port.SecondDataCenterSplit</td>
-                            <td>@port.SecondDataCenterOdfOut</td>*@                            
+                                <td>@port.SecondDataCenterOdfIn</td>
+                                <td>@port.SecondDataCenterSplit</td>
+                                <td>@port.SecondDataCenterOdfOut</td>*@
                             <td>FREE</td>
                             <td>FREE</td>
                             <td>FREE</td>
                             <td>@port.Description</td>
                             <td>
-                                <a asp-controller="Targets" asp-action="Add" asp-route-id="@port.Id" class="btn btn-primary" role="button">Add Target</a>
+                                <a asp-controller="Ports" asp-action="Edit" asp-route-id="@port.Id" class="btn btn-primary" role="button">Edit port</a>
                             </td>
                         </tr>
                     }
                 }
             </tbody>
-
         }
     </table>
     <a asp-controller="Devices" asp-action="All" class="btn btn-primary" role="button">Back</a>
     @if (@Model.DeviceFullName != null)
     {
-    <a asp-controller="Slots" asp-action="Add" asp-route-id="@Model.Id" class="btn btn-primary" role="button">Add Slot</a>
+        <a asp-controller="Slots" asp-action="Add" asp-route-id="@Model.Id" class="btn btn-primary" role="button">Add Slot</a>
     }
 
 </div>
