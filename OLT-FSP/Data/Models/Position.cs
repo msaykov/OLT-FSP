@@ -6,21 +6,20 @@
     using System.Linq;
     using System.Threading.Tasks;
 
-    public class Path
+    public class Position
     {
         public int Id { get; set; }
 
-        public string OdfInPosition { get; set; }
-
         [Required]
-        public string OdfOutPosition { get; set; }
+        public string OdfInfo { get; set; }
+
+        //[Required]
+        //public string OdfOutPosition { get; set; }
 
         public int SplitterId { get; set; }
 
         public Splitter Splitter { get; set; }
 
-        public int DestinationId { get; set; }
-
-        public Destination Destination { get; set; }
+        
     }
 }

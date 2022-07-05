@@ -22,9 +22,9 @@
         public string SecondDataCenterSplit { get; set; }    
         public string SecondDataCenterOdfOut { get; set; }
 
-        public ICollection<Destination> Targets { get; set; }
+        public ICollection<Target> Targets { get; set; }
         
-        public string Description { get; set; } // Residential customers , Business customers ... 
+        public string Notes { get; set; } // Residential customers , Business customers ... 
 
 
 

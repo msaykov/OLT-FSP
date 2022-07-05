@@ -8,7 +8,7 @@
     {
         public Port()
         {
-            this.Targets = new List<Destination>();
+            this.Targets = new List<Target>();
         }
         public int Id { get; set; }
 
@@ -22,13 +22,13 @@
 
         [Required]
         [MaxLength(DescriptionMaxLength)]     
-        public string Description { get; set; } // Residential customers , Business customers ... 
+        //public string Description { get; set; } // Residential customers , Business customers ... 
 
         //public int DestinationId { get; set; }
 
         //public Destination Destination { get; set; }
         
-        public ICollection<Destination> Targets { get; set; }
+        public ICollection<Target> Targets { get; set; }
 
         [MaxLength(NotesMaxLength)]
         public string Notes { get; set; }  // 1/2 in Cabinet , ....
@@ -38,6 +38,10 @@
         public Slot Slot { get; set; }
 
         public bool IsUsed { get; set; } = false;
+
+        public int SplitterId { get; set; }
+
+        //public Splitter Splitter { get; set; }
 
 
     }

@@ -16,9 +16,9 @@
         public DbSet<Device> Devices { get; set; }
         public DbSet<Slot> Slots { get; set; }
         public DbSet<Port> Ports { get; set; }
-        public DbSet<Destination> Destinations { get; set; }
+        public DbSet<Target> Targets { get; set; }
 
-        public DbSet<Path> Paths { get; set; }
+        public DbSet<Position> Positions { get; set; }
         public DbSet<Splitter> Splitters { get; set; }
 
 
@@ -54,19 +54,25 @@
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder
-                .Entity<Path>()
+                .Entity<Position>()
                 .HasOne(p => p.Splitter)
-                .WithMany(s => s.Paths)
+                .WithMany(s => s.OutputPositions)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            builder
-                .Entity<Path>()
-                .HasOne(p => p.Destination)
-                .WithMany(d => d.Paths)
-                .OnDelete(DeleteBehavior.Restrict);
+            //builder
+            //    .Entity<Position>()
+            //    .HasOne(p => p.D)
+            //    .WithMany(d => d.Paths)
+            //    .OnDelete(DeleteBehavior.Restrict);
+
+            //builder
+            //      .Entity<Port>()
+            //      .HasOne(p => p.Splitter)
+            //      .WithOne(s => s.Port)
+            //      .OnDelete(DeleteBehavior.Restrict);
 
             builder
-                .Entity<Destination>()
+                .Entity<Target>()
                 .HasMany(p => p.Ports)
                 .WithMany(d => d.Targets);
                 //.OnDelete(DeleteBehavior.Restrict);

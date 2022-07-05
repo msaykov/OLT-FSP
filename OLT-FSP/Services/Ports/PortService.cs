@@ -37,7 +37,6 @@
             {
                 Number = portsCount,
                 Path = path,
-                Description = description,
                 Notes = notes,
                 //Destination = destinationEntity,
                 PortFullName = $"0/{currentSlot.Number}/{portsCount}",
@@ -66,7 +65,7 @@
             var destinationEntity = GetDestinationByCoremapId(coremapNumber);
             if (destinationEntity == null)
             {
-                destinationEntity = new Destination
+                destinationEntity = new Target
                 {
                     Address = destinationAddress,
                     MapNumber = coremapNumber,
@@ -83,7 +82,7 @@
         public EditPortServiceModel Edit(int portId)
         {
             var target = this.data
-                .Destinations
+                .Targets
                 .FirstOrDefault(d => d.Ports.Any(p => p.Id == portId));
 
             return this.data
@@ -93,7 +92,7 @@
                 {
                     SplitterOutputs = "???",
                     Path = p.Path,
-                    CoremapNumber = target!= null ? target.MapNumber : 0,
+                    CoremapNumber = target != null ? target.MapNumber : 0,
                     Destination = target != null ? target.Address : "N/A",
                     Zone = target != null ? target.Zone : "N/A",
                     Notes = p.Notes,
@@ -104,47 +103,59 @@
         public void Edit(
             string splitterOutputs,    // direct , 1/2 , 1/16 ...
             string odfPort,            // ODF-5 , port 45 ...
-            string destinationAddress, 
+            string destinationAddress,
             int coremapNumber,
             string zone,
             string notes,              // ???
             int portId
             )
-        { 
+        {
             var portEntity = this.GetPortById(portId);
 
-            if (splitterOutputs == "1" || splitterOutputs.ToLower().Contains("direct"))
+            if (splitterOutputs.ToLower().Contains("direct"))
             {
                 // TO DO
+                portEntity.Path = odfPort;
             }
             else
             {
-                // TO DO
+                var splitterEntity = new Splitter()
+                {
+                    OutputsCount = int.Parse(splitterOutputs),
+                    PortId = portId,
+                    InputPosition = odfPort,
+
+                };
+                // TO DO Duplicate port for each splitter output
+
+
             }
 
-            portEntity.Path = odfPort;
+            //portEntity.Path = odfPort;
             portEntity.Notes = notes;
 
             var targetEntity = this.data
-                .Destinations
+                .Targets
                 .FirstOrDefault(d => d.MapNumber == coremapNumber);
 
             if (targetEntity == null)
             {
-                targetEntity = new Destination
+                targetEntity = new Target
                 {
                     MapNumber = coremapNumber,
                     Address = destinationAddress,
                     Zone = zone,
                 };
-                portEntity.Targets.Add(targetEntity);
             }
-            else
-            {
-                targetEntity.MapNumber = coremapNumber;
-                targetEntity.Address = destinationAddress;
-                targetEntity.Zone = zone;
-            }            
+            portEntity.Targets.Add(targetEntity);
+            //else
+            //{
+            //    targetEntity.MapNumber = coremapNumber;
+            //    targetEntity.Address = destinationAddress;
+            //    targetEntity.Zone = zone;
+            //}
+            portEntity.IsUsed = true;
+
             this.data.SaveChanges();
         }
 
@@ -190,7 +201,7 @@
                     PortFullName = pq.PortFullName,
                     DataCenterSplit = "Direct port",
                     DataCenterOdfOut = pq.Path,
-                    Description = pq.Description,
+                    Notes = pq.Notes,
                     Targets = pq.Targets,
                     //DestinationId = pq.Destination.MapNumber,
                     //DestinationAddress = pq.Destination.Address,
@@ -220,8 +231,8 @@
             return device.DeviceFullName;
         }
 
-        private Destination GetDestinationByCoremapId(int coremapNumber)
-            => this.data.Destinations
+        private Target GetDestinationByCoremapId(int coremapNumber)
+            => this.data.Targets
             .FirstOrDefault(d => d.MapNumber == coremapNumber);
 
         private int GetUsedPortsCount(int slotId)

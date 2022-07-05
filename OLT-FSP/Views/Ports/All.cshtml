@@ -56,7 +56,8 @@
                     @*<th scope="col" style="width: 10%">DC Name</th>
                         <th scope="col" style="width: 5%">Device</th>*@
                     <th scope="col" style="width: 5%">Port</th>
-                    <th scope="col">DC Connection</th>
+                    <th scope="col">Splitter IN Position</th>
+                    <th scope="col">Splitter OUT position</th>
                     <th scope="col" style="width: 15%">DC ODF Out</th>
                     @*<th scope="col">SDC Name</th>
                         <th scope="col">SDC ODF In</th>
@@ -75,24 +76,25 @@
                     {
                         foreach (var target in port.Targets)
                         {
-                            <tr class="clickable text-center">
-                                @*<td>@port.DataCenterName</td>
-                                    <td>@port.DeviceName</td>*@
-                                <td>@port.PortFullName</td>
-                                <td>@port.DataCenterSplit</td>
-                                <td>@port.DataCenterOdfOut</td>
-                                @*<td>@port.SecondDataCenterName</td>
-                                    <td>@port.SecondDataCenterOdfIn</td>
-                                    <td>@port.SecondDataCenterSplit</td>
-                                    <td>@port.SecondDataCenterOdfOut</td>*@
-                                <td>@target.MapNumber</td>
-                                <td>@target.Address</td>
-                                <td>@target.Zone</td>
-                                <td>@port.Description</td>
-                                <td>
-                                    <a asp-controller="Ports" asp-action="Edit" asp-route-id="@port.Id" class="btn btn-primary" role="button">Edit port</a>
-                                </td>
-                            </tr>
+                <tr class="clickable text-center">
+                    @*<td>@port.DataCenterName</td>
+        <td>@port.DeviceName</td>*@
+                    <td>@port.PortFullName</td>
+                    <td>@port.DataCenterSplit</td>
+                    <td>@port.DataCenterSplit</td>   @*SPLITTER OUT*@
+                    <td>@port.DataCenterOdfOut</td>
+                    @*<td>@port.SecondDataCenterName</td>
+        <td>@port.SecondDataCenterOdfIn</td>
+        <td>@port.SecondDataCenterSplit</td>
+        <td>@port.SecondDataCenterOdfOut</td>*@
+                    <td>@target.MapNumber</td>
+                    <td>@target.Address</td>
+                    <td>@target.Zone</td>
+                    <td>@port.Notes</td>
+                    <td>
+                        <a asp-controller="Ports" asp-action="Edit" asp-route-id="@port.Id" class="btn btn-primary" role="button">Edit port</a>
+                    </td>
+                </tr>
                         }
                     }
                     else
@@ -102,6 +104,7 @@
                                 <td>@port.DeviceName</td>*@
                             <td>@port.PortFullName</td>
                             <td>@port.DataCenterSplit</td>
+                            <td>@port.DataCenterSplit</td>    @*SPLITTER OUT*@
                             <td>@port.DataCenterOdfOut</td>
                             @*<td>@port.SecondDataCenterName</td>
                                 <td>@port.SecondDataCenterOdfIn</td>
@@ -110,7 +113,7 @@
                             <td>FREE</td>
                             <td>FREE</td>
                             <td>FREE</td>
-                            <td>@port.Description</td>
+                            <td>@port.Notes</td>
                             <td>
                                 <a asp-controller="Ports" asp-action="Edit" asp-route-id="@port.Id" class="btn btn-primary" role="button">Edit port</a>
                             </td>
@@ -127,12 +130,13 @@
                     <th scope="col" style="width: 10%">DC Name</th>
                     <th scope="col" style="width: 5%">Device</th>
                     <th scope="col" style="width: 5%">Port</th>
-                    <th scope="col">DC Connection</th>
+                    <th scope="col">Splitter IN Position</th>
+                    <th scope="col">Splitter OUT position</th>
                     <th scope="col" style="width: 15%">DC ODF Out</th>
                     @*<th scope="col">SDC Name</th>
-                        <th scope="col">SDC ODF In</th>
-                        <th scope="col">SDC Connection</th>
-                        <th scope="col">SDC ODF Out</th>*@
+        <th scope="col">SDC ODF In</th>
+        <th scope="col">SDC Connection</th>
+        <th scope="col">SDC ODF Out</th>*@
                     <th scope="col" style="width: 10%">Coremap Id</th>
                     <th scope="col" style="width: 20%">Address</th>
                     <th scope="col">Zone</th>
@@ -146,46 +150,48 @@
                     {
                         foreach (var target in port.Targets)
                         {
-                            <tr class="clickable text-center">
-                                <td>@port.DataCenterName</td>
-                                <td>@port.DeviceName</td>
-                                <td>@port.PortFullName</td>
-                                <td>@port.DataCenterSplit</td>
-                                <td>@port.DataCenterOdfOut</td>
-                                @*<td>@port.SecondDataCenterName</td>
-                                    <td>@port.SecondDataCenterOdfIn</td>
-                                    <td>@port.SecondDataCenterSplit</td>
-                                    <td>@port.SecondDataCenterOdfOut</td>*@
-                                <td>@target.MapNumber</td>
-                                <td>@target.Address</td>
-                                <td>@target.Zone</td>
-                                <td>@port.Description</td>
-                                <td>
-                                    <a asp-controller="Ports" asp-action="Edit" asp-route-id="@port.Id" class="btn btn-primary" role="button">Edit port</a>
-                                </td>
-                            </tr>
+                <tr class="clickable text-center">
+                    <td>@port.DataCenterName</td>
+                    <td>@port.DeviceName</td>
+                    <td>@port.PortFullName</td>
+                    <td>@port.DataCenterSplit</td>
+                    <td>@port.DataCenterSplit</td>  @*SPLITTER OUT*@
+                    <td>@port.DataCenterOdfOut</td>
+                    @*<td>@port.SecondDataCenterName</td>
+        <td>@port.SecondDataCenterOdfIn</td>
+        <td>@port.SecondDataCenterSplit</td>
+        <td>@port.SecondDataCenterOdfOut</td>*@
+                    <td>@target.MapNumber</td>
+                    <td>@target.Address</td>
+                    <td>@target.Zone</td>
+                    <td>@port.Notes</td>
+                    <td>
+                        <a asp-controller="Ports" asp-action="Edit" asp-route-id="@port.Id" class="btn btn-primary" role="button">Edit port</a>
+                    </td>
+                </tr>
                         }
                     }
                     else
                     {
-                        <tr class="clickable text-center">
-                            <td>@port.DataCenterName</td>
-                            <td>@port.DeviceName</td>
-                            <td>@port.PortFullName</td>
-                            <td>@port.DataCenterSplit</td>
-                            <td>@port.DataCenterOdfOut</td>
-                            @*<td>@port.SecondDataCenterName</td>
-                                <td>@port.SecondDataCenterOdfIn</td>
-                                <td>@port.SecondDataCenterSplit</td>
-                                <td>@port.SecondDataCenterOdfOut</td>*@
-                            <td>FREE</td>
-                            <td>FREE</td>
-                            <td>FREE</td>
-                            <td>@port.Description</td>
-                            <td>
-                                <a asp-controller="Ports" asp-action="Edit" asp-route-id="@port.Id" class="btn btn-primary" role="button">Edit port</a>
-                            </td>
-                        </tr>
+            <tr class="clickable text-center">
+                <td>@port.DataCenterName</td>
+                <td>@port.DeviceName</td>
+                <td>@port.PortFullName</td>
+                <td>@port.DataCenterSplit</td>
+                <td>@port.DataCenterSplit</td>  @*SPLITTER OUT*@
+                <td>@port.DataCenterOdfOut</td>
+                @*<td>@port.SecondDataCenterName</td>
+        <td>@port.SecondDataCenterOdfIn</td>
+        <td>@port.SecondDataCenterSplit</td>
+        <td>@port.SecondDataCenterOdfOut</td>*@
+                <td>FREE</td>
+                <td>FREE</td>
+                <td>FREE</td>
+                <td>@port.Notes</td>
+                <td>
+                    <a asp-controller="Ports" asp-action="Edit" asp-route-id="@port.Id" class="btn btn-primary" role="button">Edit port</a>
+                </td>
+            </tr>
                     }
                 }
             </tbody>

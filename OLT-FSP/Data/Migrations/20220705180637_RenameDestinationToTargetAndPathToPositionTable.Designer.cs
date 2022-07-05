@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OLT_FSP.Data;
 
 namespace OLT_FSP.Data.Migrations
 {
     [DbContext(typeof(OltDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220705180637_RenameDestinationToTargetAndPathToPositionTable")]
+    partial class RenameDestinationToTargetAndPathToPositionTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -319,6 +321,10 @@ namespace OLT_FSP.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("OdfOutPosition")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("SplitterId")
                         .HasColumnType("int");
 
@@ -366,9 +372,6 @@ namespace OLT_FSP.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("InputPosition")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("OutputsCount")
                         .HasColumnType("int");
@@ -524,7 +527,7 @@ namespace OLT_FSP.Data.Migrations
             modelBuilder.Entity("OLT_FSP.Data.Models.Position", b =>
                 {
                     b.HasOne("OLT_FSP.Data.Models.Splitter", "Splitter")
-                        .WithMany("OutputPositions")
+                        .WithMany("Positions")
                         .HasForeignKey("SplitterId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -579,7 +582,7 @@ namespace OLT_FSP.Data.Migrations
 
             modelBuilder.Entity("OLT_FSP.Data.Models.Splitter", b =>
                 {
-                    b.Navigation("OutputPositions");
+                    b.Navigation("Positions");
                 });
 
             modelBuilder.Entity("OLT_FSP.Data.Models.Target", b =>

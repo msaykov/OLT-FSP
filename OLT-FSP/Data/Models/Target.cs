@@ -5,11 +5,11 @@
     using System.ComponentModel.DataAnnotations;
     using static OLT_FSP.Data.DataConstants;
 
-    public class Destination
+    public class Target
     {
-        public Destination()
+        public Target()
         {
-            this.Paths = new List<Path>();
+            this.Positions = new List<Position>();
             this.Ports = new List<Port>();
         }
         public int Id { get; set; }
@@ -27,7 +27,7 @@
 
         //public Path Path { get; set; }
 
-        public ICollection<Path> Paths { get; set; }
+        public ICollection<Position> Positions { get; set; }
         public ICollection<Port> Ports { get; set; }
 
         //public int PortId { get; set; }

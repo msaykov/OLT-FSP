@@ -15,11 +15,11 @@
         public void Add(string address, int mapNumber, string zone, int portId)
         {
             var targetEntity = this.data
-                .Destinations
+                .Targets
                 .FirstOrDefault(d => d.MapNumber == mapNumber);
             if (targetEntity == null)
             {
-                targetEntity = new Destination
+                targetEntity = new Target
                 {
                     Address = address,
                     MapNumber = mapNumber,
@@ -27,7 +27,7 @@
                     //PortId = portId,
                 };
             }
-            this.data.Destinations.Add(targetEntity);
+            this.data.Targets.Add(targetEntity);
             this.data.SaveChanges();
         }
     }

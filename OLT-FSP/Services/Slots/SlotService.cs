@@ -61,7 +61,6 @@
                     Number = i,
                     PortFullName = $"0/{this.GetSlotsCount(deviceId)}/{i}",
                     Path = "N/A",
-                    Description = "N/A",
                     Notes = "N/A",
                     IsUsed = false,
                 };
