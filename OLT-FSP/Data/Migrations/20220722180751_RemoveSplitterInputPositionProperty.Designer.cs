@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OLT_FSP.Data;
 
 namespace OLT_FSP.Data.Migrations
 {
     [DbContext(typeof(OltDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220722180751_RemoveSplitterInputPositionProperty")]
+    partial class RemoveSplitterInputPositionProperty
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -315,9 +317,6 @@ namespace OLT_FSP.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<bool>("IsInputPosition")
-                        .HasColumnType("bit");
-
                     b.Property<string>("OdfInfo")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -325,7 +324,7 @@ namespace OLT_FSP.Data.Migrations
                     b.Property<int>("SplitterId")
                         .HasColumnType("int");
 
-                    b.Property<int>("TargetId")
+                    b.Property<int?>("TargetId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -531,9 +530,7 @@ namespace OLT_FSP.Data.Migrations
 
                     b.HasOne("OLT_FSP.Data.Models.Target", null)
                         .WithMany("Positions")
-                        .HasForeignKey("TargetId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("TargetId");
 
                     b.Navigation("Splitter");
                 });

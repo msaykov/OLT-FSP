@@ -10,15 +10,15 @@
     {
         public Splitter()
         {
-            this.OutputPositions = new List<Position>();
+            this.Positions = new List<Position>();
         }
         public int Id { get; set; }
 
         public int OutputsCount { get; set; }
 
-        public string InputPosition { get; set; }
+        //public Position InputPosition { get; set; }
 
-        public ICollection<Position> OutputPositions { get; set; }
+        public ICollection<Position> Positions { get; set; }
 
         public int PortId { get; set; }
 

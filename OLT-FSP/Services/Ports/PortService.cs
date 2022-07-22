@@ -101,42 +101,17 @@
         }
 
         public void Edit(
-            string splitterOutputs,    // direct , 1/2 , 1/16 ...
-            string odfPort,            // ODF-5 , port 45 ...
-            string destinationAddress,
-            int coremapNumber,
-            string zone,
-            string notes,              // ???
+            string splitterOutputs,     // direct = "1" , 1/2 = "2" , 1/16 = "16" ...
+            string odfPort,             // ODF-5 , port 45 ...
+            string destinationAddress,  // Mladost , bl.222 ...
+            int coremapNumber,          // 123456
+            string zone,                // zone name or empty
+            string notes,               
             int portId
             )
         {
             var portEntity = this.GetPortById(portId);
-
-            if (splitterOutputs.ToLower().Contains("direct"))
-            {
-                // TO DO
-                portEntity.Path = odfPort;
-            }
-            else
-            {
-                var splitterEntity = new Splitter()
-                {
-                    OutputsCount = int.Parse(splitterOutputs),
-                    PortId = portId,
-                    InputPosition = odfPort,
-
-                };
-                // TO DO Duplicate port for each splitter output
-
-
-            }
-
-            //portEntity.Path = odfPort;
-            portEntity.Notes = notes;
-
-            var targetEntity = this.data
-                .Targets
-                .FirstOrDefault(d => d.MapNumber == coremapNumber);
+            var targetEntity = this.GetDestinationByCoremapId(coremapNumber);
 
             if (targetEntity == null)
             {
@@ -147,15 +122,71 @@
                     Zone = zone,
                 };
             }
-            portEntity.Targets.Add(targetEntity);
+
+            var portEntityTarget = this.data
+                .Targets
+                .FirstOrDefault(t => t.Ports.Any(p => p.Id == portId));
+
+            if (portEntityTarget == null)
+            {
+                portEntity.Targets.Add(targetEntity);
+            }
+            else
+            {
+                portEntityTarget.MapNumber = targetEntity.MapNumber;
+                portEntityTarget.Address = targetEntity.Address;
+                portEntityTarget.Zone = targetEntity.Zone;
+            }
+
+            portEntity.Path = odfPort;
+            portEntity.Notes = notes;
+            portEntity.IsUsed = true;            
+
+            //if (splitterOutputs == "1")
+            //{
+            //    portEntity.Path = odfPort;
+            //}
             //else
             //{
-            //    targetEntity.MapNumber = coremapNumber;
-            //    targetEntity.Address = destinationAddress;
-            //    targetEntity.Zone = zone;
-            //}
-            portEntity.IsUsed = true;
+                
+            //    //// TO DO Create new port for each splitter output-1
 
+            //    //// create splitter Input position
+            //    //var positionEntity = new Position
+            //    //{
+            //    //    OdfInfo = "Splitter Input Position",
+            //    //    IsInputPosition = true
+            //    //};
+
+            //    //var splitterEntity = new Splitter()
+            //    //{
+            //    //    OutputsCount = int.Parse(splitterOutputs),
+            //    //    PortId = portId,
+
+            //    //};
+
+            //    //splitterEntity.Positions.Add(positionEntity);
+
+            //    //// first output gets the direct port info
+            //    //positionEntity.IsInputPosition = false;
+            //    //positionEntity.OdfInfo = odfPort;
+            //    //splitterEntity.Positions.Add(positionEntity);
+
+            //    //// add info to other splitter outputs
+            //    //for (int i = 2; i <= splitterEntity.OutputsCount; i++)
+            //    //{
+            //    //    if (i == 2)
+            //    //    {
+            //    //        positionEntity.OdfInfo = "Splitter Output Position";
+            //    //    }
+            //    //    else
+            //    //    {
+            //    //        positionEntity.OdfInfo = "FREE";
+            //    //    }
+            //    //    splitterEntity.Positions.Add(positionEntity);
+            //    //}
+
+            //}
             this.data.SaveChanges();
         }
 

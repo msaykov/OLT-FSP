@@ -56,7 +56,7 @@
             builder
                 .Entity<Position>()
                 .HasOne(p => p.Splitter)
-                .WithMany(s => s.OutputPositions)
+                .WithMany(s => s.Positions)
                 .OnDelete(DeleteBehavior.Restrict);
 
             //builder

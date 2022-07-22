@@ -20,6 +20,10 @@
 
         public Splitter Splitter { get; set; }
 
-        
+        public int TargetId { get; set; }
+
+        public bool IsInputPosition { get; set; }
+
+
     }
 }
